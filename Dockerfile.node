@@ -1,0 +1,16 @@
+FROM node:alpine
+
+# Install dependencies and Web3
+RUN apk add --no-cache \
+    git \
+    bash \
+    && npm install -g web3
+
+# Copy your JavaScript file into the container
+COPY transaction_broadcast.js /usr/src/app/transaction_broadcast.js
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Start the node.js script when the container runs
+ENTRYPOINT ["node", "transaction_broadcast.js"]

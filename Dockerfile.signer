@@ -1,0 +1,13 @@
+FROM python:3.9-slim
+
+# Install necessary dependencies
+RUN pip install web3
+
+# Copy the signer script and cold_storage into the container
+COPY signer.py /usr/src/app/signer.py
+COPY cold_storage /usr/src/app/cold_storage
+
+WORKDIR /usr/src/app
+
+# Run the signer script when the container starts
+ENTRYPOINT ["python3", "signer.py"]

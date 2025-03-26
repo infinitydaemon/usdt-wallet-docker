@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: usdt-wallet-docker-node-1
+    networks:
+      - usdt-wallet-docker_default
+    restart: unless-stopped
+
+  signer:
+    build:
+      context: .
+      dockerfile: Dockerfile.signer
+    container_name: usdt-wallet-docker-signer-1
+    networks:
+      - usdt-wallet-docker_default
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: usdt-wallet-docker-web-1
+    ports:
+      - "3000:3000"
+    networks:
+      - usdt-wallet-docker_default
+    restart: unless-stopped
+
+networks:
+  usdt-wallet-docker_default:
+    driver: bridge
